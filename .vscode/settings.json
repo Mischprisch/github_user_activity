@@ -4,8 +4,10 @@
     "comments": "off",
     "strings": "off"
   },
+  "editor.wordBasedSuggestions": "off",
   "editor.suggestOnTriggerCharacters": true,
   "editor.inlineSuggest.enabled": false,
+  "python.defaultInterpreterPath": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
   "github.copilot.enable": {
     "*": false
   },
