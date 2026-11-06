@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "github-user-activity"
+version = "0.1.0"
+description = "A CLI that displays recent GitHub user activity"
+requires-python = ">=3.12"
+dependencies = ["requests>=2.31"]
+
+[project.scripts]
+github-activity = "github_activity:main"
+
+[tool.setuptools]
+py-modules = ["github_activity"]

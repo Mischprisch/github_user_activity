@@ -1,2 +1,2 @@
 @echo off
-python "%~dp0github-activity" %*
+python "%~dp0github-activity.py" %*
