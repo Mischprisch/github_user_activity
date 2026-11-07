@@ -37,11 +37,14 @@ def get_user_data(username):
              issue_number = event["payload"]["issue"]["number"]
              print(f"- {action} an issue comment on {repo} (issue #{issue_number})")
             elif event["type"] == "IssuesEvent":
-             payload = event["payload"]
-             print(f"- Issue status: {payload["action"]} {repo} #{event["issue"]["number"]}")
+             action = event["payload"]["action"]
+             print(f"- {action} an issue in {repo} (issue #{event["issue"]["number"]})")
             elif event["type"]=="MemberEvent":
                 member = event["payload"]["member"]["login"]
-                print(f"- {member} was {event["payload"]["action"]} as a member of {repo}")
+                action = event["payload"]["action"]
+                print(f"- {member} was {action} as a member of {repo}")
+            elif event["type"] == "PublicEvent":
+                print(f"- Made the private repo {repo} public")
             elif event["type"]=="PullRequestEvent":
                 payload = event["payload"]
                 number = payload["number"]
@@ -51,10 +54,14 @@ def get_user_data(username):
                 review = payload["review"]
                 pr = payload["pull_request"]
                 print(f"- {review["state"]} on {repo} (#{pr["number"]}, {review["_links"]["html"]["href"]})")
+            elif event["type"] == "PullRequestReviewCommentEvent":
+                action = event["payload"]["action"]
+                print(f"- {action} a pull request review comment on {repo}")
             elif event["type"]=="PushEvent":
-                payload = event["payload"]
+                before = event["payload"]["before"]
+                head = event["payload"]["head"]
                 try:
-                 commit_count_url = f"https://api.github.com/repos/{repo}/compare/{payload["before"]}...{payload["head"]}"
+                 commit_count_url = f"https://api.github.com/repos/{repo}/compare/{before}...{head}"
                  commit_count_response = requests.get(commit_count_url)
                  commit_count_data = commit_count_response.json()
                  commit_amount = commit_count_data["total_commits"]
@@ -64,8 +71,12 @@ def get_user_data(username):
                   print(f"- Pushed {commit_amount} commit in {repo}")
                 except KeyError:
                         print(f"- Pushed to {repo}")
+            elif event["type"] == "ReleaseEvent":
+                action = event["payload"]["action"]
+                print(f"{action} {repo}")
             elif event["type"]=="WatchEvent":
-                print(f"- Had a peek inside {repo}")
+                action = event["payload"]["action"]
+                print(f"- {action} {repo}")
 
 
 def main():

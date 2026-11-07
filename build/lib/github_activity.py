@@ -2,7 +2,7 @@ import argparse
 import requests
 
 def get_user_data(username):
-    url = f"https://api.github.com/users/{username}/events?per_page=10"
+    url = f"https://api.github.com/users/{username}/events?per_page=15"
     response = requests.get(url)
     user_data = response.json()
     if response.status_code != 200:
@@ -50,7 +50,7 @@ def get_user_data(username):
                 payload = event["payload"]
                 review = payload["review"]
                 pr = payload["pull_request"]
-                print(f"- {review["state"]} review on {repo} #{pr["number"]}: {review["_links"]["html"]["href"]}")
+                print(f"- {review["state"]} on {repo} (#{pr["number"]}, {review["_links"]["html"]["href"]})")
             elif event["type"]=="PushEvent":
                 payload = event["payload"]
                 try:
