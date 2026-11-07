@@ -5,7 +5,11 @@ def get_user_data(username):
     url = f"https://api.github.com/users/{username}/events?per_page=10"
     response = requests.get(url)
     user_data = response.json()
-    if response.status_code == 200:
+    if response.status_code != 200:
+     message = user_data.get("message", "Unknown error") if isinstance(user_data, dict) else "Unknown error"
+     print(f"Failed to retrieve data: {message}")
+     return
+    elif response.status_code == 200:
         for event in user_data:
             repo = event["repo"]["name"]
             if event["type"]=="CommitCommentEvent":
@@ -62,10 +66,6 @@ def get_user_data(username):
                         print(f"- Pushed to {repo}")
             elif event["type"]=="WatchEvent":
                 print(f"- Had a peek inside {repo}")
-            elif "API rate limit exceeded" in user_data("message", ""):
-                print("Rate limit exceeded, try again later")
-            else:
-                print(f"Failed to retrieve data {response.status_code}")
 
 
 def main():
