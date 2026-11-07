@@ -62,7 +62,7 @@ def get_user_data(username):
                         print(f"- Pushed to {repo}")
             elif event["type"]=="WatchEvent":
                 print(f"- Had a peek inside {repo}")
-            elif "API rate limit exceeded" in user_data("message", ""):
+            elif "API rate limit exceeded" in user_data:
                 print("Rate limit exceeded, try again later")
             else:
                 print(f"Failed to retrieve data {response.status_code}")
