@@ -1,4 +1,5 @@
 README.md
+github_activity.py
 pyproject.toml
 github_user_activity.egg-info/PKG-INFO
 github_user_activity.egg-info/SOURCES.txt
