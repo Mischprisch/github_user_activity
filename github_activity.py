@@ -53,7 +53,7 @@ def get_user_data(username):
                 payload = event["payload"]
                 review = payload["review"]
                 pr = payload["pull_request"]
-                print(f"- {review["state"]} on {repo} (#{pr["number"]}, {review["_links"]["html"]["href"]})")
+                print(f"- {(review["state"].capitalize())} on {repo} (#{pr["number"]}, {review["_links"]["html"]["href"]})")
             elif event["type"] == "PullRequestReviewCommentEvent":
                 action = event["payload"]["action"]
                 print(f"- {action} a pull request review comment on {repo}")
