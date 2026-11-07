@@ -2,7 +2,7 @@ import argparse
 import requests
 
 def get_user_data(username):
-    url = f"https://api.github.com/users/{username}/events?per_page=20"
+    url = f"https://api.github.com/users/{username}/events?per_page=10"
     response = requests.get(url)
     user_data = response.json()
     if response.status_code == 200:
@@ -13,7 +13,7 @@ def get_user_data(username):
              comment = event["payload"]["comment"]
              print(f"-{action} a comment in {repo} ('{comment}')")
             elif event["type"] == "CreateEvent":
-                print(f"- Created a branch or tag in {repo}")
+                print(f"- Created a {event["payload"]["ref_type"]} in {repo}")
             elif event["type"] == "DeleteEvent":
              thing = event["payload"]["ref_type"]
              print(f"- Deleted a {thing} in {repo}")
