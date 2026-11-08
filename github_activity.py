@@ -10,7 +10,7 @@ def get_user_data(username):
      print(f"Failed to retrieve data: {message}")
      return
     elif response.status_code == 200:
-        print("10 most recent events:\n")
+        print("\n10 most recent events:\n")
         for event in user_data:
             repo = event["repo"]["name"]
             if event["type"]=="CommitCommentEvent":
