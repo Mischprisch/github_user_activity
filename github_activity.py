@@ -48,7 +48,7 @@ def get_user_data(username):
                 action = event["payload"]["action"]
                 print(f"- {member.capitalize()} was {action} as a member of {repo}")
             elif event["type"] == "PublicEvent":
-                print(f"- Made the private repo {repo} public")
+                print(f"- Made the repo {repo} public")
             elif event["type"]=="PullRequestEvent":
                 action = event["payload"]["action"]
                 number = event["payload"]["number"]
