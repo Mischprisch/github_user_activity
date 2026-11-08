@@ -10,6 +10,7 @@ def get_user_data(username):
      print(f"Failed to retrieve data: {message}")
      return
     elif response.status_code == 200:
+        print("10 most recent events:\n")
         for event in user_data:
             repo = event["repo"]["name"]
             if event["type"]=="CommitCommentEvent":
@@ -56,7 +57,6 @@ def get_user_data(username):
             elif event["type"]=="PullRequestReviewEvent":
                 review = event["payload"]["review"]
                 pr_number = event["payload"]["pull_request"]["number"]
-                link = review["_links"]["html"]["href"]
                 print(f"- {review["state"].capitalize()} on {repo} (comment #{pr_number})")
             elif event["type"] == "PullRequestReviewCommentEvent":
                 action = event["payload"]["action"]
