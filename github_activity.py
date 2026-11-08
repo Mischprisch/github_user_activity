@@ -32,17 +32,18 @@ def get_user_data(username):
                 full_name = event["payload"]["forkee"]["full_name"]
                 print(f"- {action.capitalize()} {name} to {full_name}")
             elif event["type"] == "GollumEvent":
-                action = event["payload"]["pages"]["action"]
-                name = event["payload"]["pages"]["page_name"]
-                url = event["[payload"]["pages"]["html_url"]
-                print(f"- {action.capitalize()} the wiki page: {name} (URL:{url}")
+                for page in event["payload"]["pages"]:
+                    action = page["action"]
+                    name = page["page_name"]
+                    url = page["html_url"]
+                    print(f"- {action.capitalize()} wiki page '{name}' in {repo}: {url}")
             elif event["type"] == "IssueCommentEvent":
                 action = event["payload"]["action"]
                 issue_number = event["payload"]["issue"]["number"]
                 print(f"- {action.capitalize()} an issue comment on {repo} (issue #{issue_number})")
             elif event["type"] == "IssuesEvent":
                 action = event["payload"]["action"]
-                issue_number = event["issue"]["number"]
+                issue_number = event["payload"]["issue"]["number"]
                 print(f"- {action.capitalize()} an issue in {repo} (issue #{issue_number})")
             elif event["type"]=="MemberEvent":
                 member = event["payload"]["member"]["login"]
@@ -57,7 +58,7 @@ def get_user_data(username):
             elif event["type"]=="PullRequestReviewEvent":
                 review = event["payload"]["review"]
                 pr_number = event["payload"]["pull_request"]["number"]
-                print(f"- {review["state"].capitalize()} on {repo} (comment #{pr_number})")
+                print(f"- {review["state"].capitalize()} on {repo} (#{pr_number})")
             elif event["type"] == "PullRequestReviewCommentEvent":
                 action = event["payload"]["action"]
                 print(f"- {action.capitalize()} a pull request review comment on {repo}")
