@@ -52,12 +52,12 @@ def get_user_data(username):
             elif event["type"]=="PullRequestEvent":
                 action = event["payload"]["action"]
                 number = event["payload"]["number"]
-                print(f"- {action.capitalize()} #{number} in {repo}: https://github.com/{repo}/pull/{number}")
+                print(f"- {action.capitalize()} pull request #{number} in {repo}")
             elif event["type"]=="PullRequestReviewEvent":
                 review = event["payload"]["review"]
                 pr_number = event["payload"]["pull_request"]["number"]
                 link = review["_links"]["html"]["href"]
-                print(f"- {review["state"].capitalize()} on {repo} (#{pr_number}, {link})")
+                print(f"- {review["state"].capitalize()} on {repo} (comment #{pr_number})")
             elif event["type"] == "PullRequestReviewCommentEvent":
                 action = event["payload"]["action"]
                 print(f"- {action.capitalize()} a pull request review comment on {repo}")
